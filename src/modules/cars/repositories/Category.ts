@@ -1,27 +1,34 @@
-import { ICategoryDTO, ICategoryRepository } from "../interface/ICategory";
-import { Category } from "../model/Category";
+import { ICategoryDTO, ICategoryRepository } from "../interface/ICategory"
+import { Category } from "../model/Category"
 
 class CategoryRepository implements ICategoryRepository {
-  private categories: Category[];
+  private categories: Category[]
+  private static INSTANCE: CategoryRepository
 
-  constructor() {
-    this.categories = [];
+  private constructor() {
+    this.categories = []
+  }
+  public static getInstance():CategoryRepository{
+    if (!CategoryRepository.INSTANCE) {
+      CategoryRepository.INSTANCE = new CategoryRepository()
+    }
+    return CategoryRepository.INSTANCE
   }
   create({ name, description }: ICategoryDTO): void {
-    const category = new Category();
+    const category = new Category()
     Object.assign(category, {
       name,
       description,
     });
-    this.categories.push(category);
+    this.categories.push(category)
   }
   list(): Category[] {
-    return this.categories;
+    return this.categories
   }
   findByName(name: string): Category | undefined {
     const category = this.categories.find((category) => category.name === name);
-    return category;
+    return category
   }
 }
 
-export { CategoryRepository };
+export { CategoryRepository }
