@@ -8,12 +8,14 @@ class CategoryRepository implements ICategoryRepository {
   private constructor() {
     this.categories = []
   }
+
   public static getInstance():CategoryRepository{
     if (!CategoryRepository.INSTANCE) {
       CategoryRepository.INSTANCE = new CategoryRepository()
     }
     return CategoryRepository.INSTANCE
   }
+  
   create({ name, description }: ICategoryDTO): void {
     const category = new Category()
     Object.assign(category, {
