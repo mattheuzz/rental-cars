@@ -1,25 +1,12 @@
 import { Router } from 'express'
 import { CategoryRepository } from '../modules/cars/repositories/Category'
-import { CreateCategoryService } from '../modules/cars/useCase/createCategory/CreateCategoryUseCase'
+import { createCategoryController } from '../modules/cars/useCase/createCategory'
 
 const categoriesRoutes = Router()
 const categoryRepository = new CategoryRepository()
 
 categoriesRoutes.post('/', (req, res) =>{
-  const { name, description } = req.body
-
-  if (!name || !description) {
-    return res
-    .status(400)
-    .json({
-      error: "Name and description are required"
-    })
-  }
-
-  const createCategoryService = new CreateCategoryService(categoryRepository)
-  createCategoryService.execute({ name, description })
-
-  return res.status(201).send()
+  return createCategoryController.handle(req, res)
 })
 
 categoriesRoutes.get('/', (req, res) => {
