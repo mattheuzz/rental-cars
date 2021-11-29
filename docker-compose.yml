@@ -6,13 +6,14 @@ services:
     container_name: database_service
     restart: always
     ports:
+      - 3000:3000
       - 5432:5432 
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=123456
       - POSTGRES_DB=rentalCars
     volumes:
-      pgdata:/data/postgres
+      - pgdata:/data/postgres
     
   app:
     build: .
