@@ -1,6 +1,19 @@
 version: "3.7"
 
 services:
+  database_service:
+    image: postgres
+    container_name: database_service
+    restart: always
+    ports:
+      - 5432:5432 
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=rentalCars
+    volumes:
+      pgdata:/data/postgres
+    
   app:
     build: .
     container_name: api-cars-s.o.l.i.d
@@ -8,3 +21,7 @@ services:
       - 3000:3000
     volumes:
       - .:/usr/app
+
+volumes:
+  pgdata:
+    driver: local
