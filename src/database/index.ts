@@ -1,5 +1,5 @@
 import { createConnection, getConnectionOptions } from 'typeorm';
-
+console.log('[DB] Connecting to database...');
 interface IOptions {
   host: string;
 }
