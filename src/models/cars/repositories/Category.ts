@@ -1,12 +1,10 @@
 import { ICategoryDTO, ICategoryRepository } from "../interface/ICategory"
 import { Category } from "../entities/Category"
-import { getRepository, Repository } from "typeorm"
+import { Repository, getRepository } from "typeorm"
 
 
 class CategoryRepository implements ICategoryRepository {
   private repository: Repository<Category>
-  
-  private static INSTANCE: CategoryRepository
 
   constructor() {
     this.repository = getRepository(Category)
@@ -18,6 +16,7 @@ class CategoryRepository implements ICategoryRepository {
       description,
     })
     await this.repository.save(category)
+    console.log(category)
     
   }
   async list(): Promise<Category[]>{

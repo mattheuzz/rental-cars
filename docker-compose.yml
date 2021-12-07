@@ -6,7 +6,6 @@ services:
     container_name: database_service
     restart: always
     ports: 
-      - 3000:3000
       - 5432:5432
     environment:
       - POSTGRES_USER=docker

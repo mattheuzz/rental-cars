@@ -3,15 +3,9 @@ import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 class CreateCategoryController {
   constructor(private criateCategoryUseCase: CreateCategoryUseCase) {}
 
-  handle(req: Request, res: Response): Response {
+  async handle(req: Request, res: Response): Promise<Response> {
     const { name, description } = req.body;
-
-    if (!name || !description) {
-      return res.status(400).json({
-        error: "Name and description are required",
-      });
-    }
-    this.criateCategoryUseCase.execute({ name, description });
+    await this.criateCategoryUseCase.execute({ name, description });
 
     return res.status(201).send();
   }

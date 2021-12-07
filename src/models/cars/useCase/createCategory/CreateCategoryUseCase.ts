@@ -6,8 +6,8 @@ import { CategoryRepository } from "../../repositories/Category"
 class CreateCategoryUseCase {
     constructor (private categoryRepository: CategoryRepository) {}
 
-    execute({ name, description }: ICategoryDTO ): void{
-        const categoryAllreadyExists = this.categoryRepository.findByName(name);
+    async execute({ name, description }: ICategoryDTO ): Promise<void>{
+        const categoryAllreadyExists = await this.categoryRepository.findByName(name)
         if (categoryAllreadyExists) {
             throw new Error('Category already exists')
         }
