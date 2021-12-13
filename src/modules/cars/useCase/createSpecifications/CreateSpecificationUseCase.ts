@@ -1,8 +1,13 @@
+import { inject, injectable } from "tsyringe"
 import { ICreationSpecificationDTO } from "../../interface/ISpecification"
 import { SpecificationRepository } from "../../repositories/Specification"
 
+@injectable()
 class CreateSpecificationUseCase {
-  constructor(private specificationRepository: SpecificationRepository){}
+  constructor(
+    @inject('SpecificationRepository')
+    private specificationRepository: SpecificationRepository
+  ){}
 
   execute({ name, description }: ICreationSpecificationDTO): void{
     const specificationAllredyExists = this.specificationRepository.findByName(name)
