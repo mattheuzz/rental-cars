@@ -4,18 +4,10 @@ import { ImportCategoryUseCase } from './ImportCategoryUseCase'
 
 class ImportCategoryController {
 
-  handle(req: Request, res: Response): Response {
+  async handle(req: Request, res: Response): Promise<Response> {
     const { file } = req
     const importCategoryUseCase = container.resolve(ImportCategoryUseCase)
-    if(!file){
-      return res
-      .status(400)
-      .json({
-        error: 'File is required'
-      })
-    }
-
-    importCategoryUseCase.execute(file)
+    await importCategoryUseCase.execute(file)
     return res
     .status(201)
     .send()
