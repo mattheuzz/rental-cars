@@ -8,7 +8,7 @@
       "email": "matheus@gmail.com"
     }
   },
-  "path": {
+  "paths": {
     "/categories": {
       "post": {
         "tags": ["Categories"],
@@ -16,7 +16,7 @@
         "description": "Create a new car category to rent",
         "requestBody": {
           "content": {
-            "aplication/json": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -35,7 +35,7 @@
             }
           }
         },
-        "response": {
+        "responses": {
           "201": {
             "description": "Category created"
           },
@@ -71,6 +71,70 @@
               }
             }
           }
+        }
+      }
+    },
+    "/categories/imports": {
+      "post": {
+        "tags": ["Categories"],
+        "summary": "Import categories",
+        "description": "Import new categories from a file",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Categories created"
+          }
+        }
+      }
+    },
+    "/specifications": {
+      "post": {
+        "tags": ["Specifications"],
+        "summary": "Create a secifications",
+        "description": "Create a new car specifications to rent",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#definitions/Specification"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Specifications created"
+          },
+          "400": {
+            "description": "Specifications alredy exist"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Specification": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
         }
       }
     }
