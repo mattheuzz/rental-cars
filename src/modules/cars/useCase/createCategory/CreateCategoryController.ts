@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response } from "express"
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase"
 import { container } from "tsyringe"
 class CreateCategoryController {
