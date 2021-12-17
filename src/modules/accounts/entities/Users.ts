@@ -7,25 +7,25 @@ export class Users {
   id?: string
 
   @Column()
-  name: string
+  name!: string
+
+  // @Column()
+  // username!: string
 
   @Column()
-  username: string
+  password!: string
 
   @Column()
-  password: string
+  email!: string
 
   @Column()
-  email: string
+  driver_license!: string
 
   @Column()
-  driver_license: string
-
-  @Column()
-  admin: boolean
+  admin: boolean = false
 
   @CreateDateColumn()
-  created_at: Date
+  created_at!: Date
 
   constructor(){
     if (!this.id) {

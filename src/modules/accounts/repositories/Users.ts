@@ -1,6 +1,6 @@
-import { getRepository, Repository } from "typeorm";
-import { Users } from "../entities/Users";
-import { ICreateUserDto, IUserRepository } from "../interfaces/IUser";
+import { getRepository, Repository } from "typeorm"
+import { Users } from "../entities/Users"
+import { ICreateUserDto, IUserRepository } from "../interfaces/IUser"
 
 export class UsersRepositorys implements IUserRepository {
   private repository: Repository<Users>
@@ -9,10 +9,9 @@ export class UsersRepositorys implements IUserRepository {
     this.repository = getRepository(Users)
   }
 
-  async create({ name, username, password, email, driver_license }: ICreateUserDto): Promise<void> {
+  async create({ name, password, email, driver_license }: ICreateUserDto): Promise<void> {
     const user = this.repository.create({
       name,
-      username,
       password,
       email,
       driver_license
@@ -20,6 +19,11 @@ export class UsersRepositorys implements IUserRepository {
 
     await this.repository.save(user)
     console.log(user)
+  }
+
+  async findByEmail(email: string): Promise<Users> {
+    const user = await this.repository.findOne({ email })
+    return user
   }
 }
 

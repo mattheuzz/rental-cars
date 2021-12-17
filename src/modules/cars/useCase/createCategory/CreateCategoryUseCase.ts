@@ -1,4 +1,4 @@
-import { ICategoryDTO } from "../../interface/ICategory";
+import { ICategoryDTO } from "../../interface/ICategory"
 import { CategoryRepository } from "../../repositories/Category"
 import { injectable, inject } from "tsyringe"
 
