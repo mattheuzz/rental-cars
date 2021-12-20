@@ -10,6 +10,6 @@ export interface ICreateUserDto{
 export interface IUserRepository {
   create({ name, password, email, driver_license }: ICreateUserDto): Promise<void>
   findByEmail(email: string): Promise<Users>
-  
+  findById(id: string): Promise<Users>
   
 }
