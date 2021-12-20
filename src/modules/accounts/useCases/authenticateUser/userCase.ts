@@ -5,6 +5,7 @@ import dotenv from "dotenv"
 import { IRequest, IResponse } from "../../interfaces/IAuthenticate"
 import { IUserRepository } from "../../interfaces/IUser"
 import { UsersRepositorys } from "../../repositories/Users"
+import { AppError } from "../../../../errors/error";
 
 dotenv.config()
 
@@ -22,12 +23,12 @@ class AuthenticateUserUseCase {
     
     const user = await this.usersRepository.findByEmail(email)
     if(!user){
-      throw new Error('Email or password invalid')
+      throw new AppError('Email or password invalid', 401)
     }
 
     const passwordMatched = await compare(password, user.password)
     if (!passwordMatched) {
-      throw new Error('Email or password invalid')
+      throw new AppError('Email or password invalid', 401)
     }
 
     const token = sign({}, process.env.JWT as string, {

@@ -3,6 +3,7 @@ import { ICreateUserDto } from "../../interfaces/IUser"
 import { IUserRepository } from "../../interfaces/IUser"
 import { UsersRepositorys } from "../../repositories/Users"
 import { hash } from "bcrypt"
+import { AppError } from "../../../../errors/error"
 
 @injectable()
 class CreateUserUseCase {
@@ -15,7 +16,7 @@ class CreateUserUseCase {
   async execute({ name, password, email, driver_license }: ICreateUserDto): Promise<void> {
     const userAlreadyExist = await this.usersRepository.findByEmail(email)
     if (userAlreadyExist) {
-      throw new Error("User already exist")
+      throw new AppError("User already exist", 400)
     }
     const passwordHash = await hash(password, 8)
     

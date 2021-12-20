@@ -3,6 +3,7 @@ import { verify } from 'jsonwebtoken'
 import dotenv from "dotenv"
 import { IPayload } from './interfaces/IPayload'
 import { UsersRepositorys } from '../modules/accounts/repositories/Users'
+import { AppError } from '../errors/error'
 
 dotenv.config()
 
@@ -10,7 +11,7 @@ async function ensureAuthenticated (req: Request, res: Response, next: NextFunct
   const authHeader = req.headers.authorization
 
   if (!authHeader) {
-    throw new Error('Token is missing')
+    throw new AppError('Token is missing', 401)
   }
 
   const [, token] = authHeader.split(' ')
@@ -24,13 +25,13 @@ try {
   console.log(user)
 
   if (!user) {
-    throw new Error('User not found')
+    throw new AppError ('User not found', 404)
   }
   
   next()
 
 } catch (e) {
-  throw new Error ('Invalid token')
+  throw new AppError ('Invalid token', 401)
   }
 }
 
