@@ -9,8 +9,8 @@ export class Users {
   @Column()
   name!: string
 
-  // @Column()
-  // username!: string
+  @Column()
+  avatar!: string
 
   @Column()
   password!: string

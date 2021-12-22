@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, request, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
 import dotenv from "dotenv"
 import { IPayload } from './interfaces/IPayload'
@@ -28,6 +28,10 @@ try {
     throw new AppError ('User not found', 404)
   }
   
+  request.user = {
+    id: user_id
+  }
+
   next()
 
 } catch (e) {
