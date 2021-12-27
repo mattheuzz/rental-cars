@@ -5,6 +5,8 @@ export interface ICreateUserDto{
   password: string
   email: string
   driver_license: string
+  id?: string
+  avatar?: string
 }
 
 export interface IUserRepository {
