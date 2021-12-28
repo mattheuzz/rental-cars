@@ -25,12 +25,12 @@ export class UsersRepositorys implements IUserRepository {
 
   async findByEmail(email: string): Promise<Users> {
     const user = await this.repository.findOne({ email })
-    return user
+    return user as Users
   }
 
   async findById(id: string): Promise<Users> {
     const user = await this.repository.findOne(id)
-    return user
+    return user as Users
   }
 
 }
