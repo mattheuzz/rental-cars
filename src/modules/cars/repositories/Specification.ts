@@ -1,5 +1,5 @@
-import { ICreationSpecificationDTO, ISpecificationsRepository } from "../interface/ISpecification"
-import { Specification } from "../entities/Specification"
+import { ICreationSpecificationDTO, ISpecificationsRepository } from "@modules/cars/interface/ISpecification"
+import { Specification } from "@modules/cars/entities/Specification"
 import { getRepository, Repository } from "typeorm"
 
 class SpecificationRepository implements ISpecificationsRepository{
@@ -21,7 +21,7 @@ class SpecificationRepository implements ISpecificationsRepository{
     const specification = this.repository.findOne({
       name
     })
-    return specification
+    return specification as unknown as Specification
   }
 }
 

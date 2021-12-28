@@ -1,7 +1,7 @@
-import { ICategoryDTO } from "../../interface/ICategory"
-import { CategoryRepository } from "../../repositories/Category"
+import { ICategoryDTO } from "@modules/cars/interface/ICategory"
+import { CategoryRepository } from "@modules/cars/repositories/Category"
 import { injectable, inject } from "tsyringe"
-import { AppError } from "../../../../errors/error"
+import { AppError } from "@errors/error"
 
 @injectable()
 class CreateCategoryUseCase {

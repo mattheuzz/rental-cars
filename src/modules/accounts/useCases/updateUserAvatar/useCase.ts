@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe'
-import { UsersRepositorys } from '../../repositories/Users'
-import { IRequestUpdateAvatar } from '../../interfaces/IUpdateAvatar'
-import { deleteFile } from '../../../../utils/file'
-import { IUserRepository } from '../../interfaces/IUser'
-import { AppError } from '../../../../errors/error'
+import { UsersRepositorys } from '@modules/accounts/repositories/Users'
+import { IRequestUpdateAvatar } from '@modules/accounts/interfaces/IUpdateAvatar'
+import { IUserRepository } from '@modules/accounts/interfaces/IUser'
+import { deleteFile } from '@utils/file'
+import { AppError } from '@errors/error'
 
 @injectable()
 class UpdateUserAvatarUseCase {
