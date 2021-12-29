@@ -1,7 +1,7 @@
-import { inject, injectable } from "tsyringe";
+import * as dotenv from "dotenv"
+import { inject, injectable } from "tsyringe"
 import { compare } from "bcrypt"
 import { sign } from "jsonwebtoken";
-import dotenv from "dotenv"
 import { IRequest, IResponse } from "@modules/accounts/interfaces/IAuthenticate"
 import { IUserRepository } from "@modules/accounts/interfaces/IUser"
 import { UsersRepositorys } from "@modules/accounts/repositories/Users"

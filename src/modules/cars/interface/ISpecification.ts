@@ -1,4 +1,4 @@
-import { Specification } from '@modules/cars/entities/Specification'
+import { Specification } from '@modules/cars/infra/typeorm/entities/Specification'
 interface ICreationSpecificationDTO {
   name: string
   description: string

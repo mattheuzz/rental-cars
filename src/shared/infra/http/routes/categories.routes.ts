@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import multer from 'multer'
+import * as multer from 'multer'
 import { ensureAuthenticated } from '../middlewares/autheticateEnsurence'
-import { CreateCategoryController } from '../modules/cars/useCase/createCategory/CreateCategoryController'
-import { ImportCategoryController } from '../modules/cars/useCase/importCategory/ImportCategoryController'
-import { ListCategorysController } from '../modules/cars/useCase/listCategory/ListCategorysController'
+import { CreateCategoryController } from '@modules/cars/useCase/createCategory/CreateCategoryController'
+import { ImportCategoryController } from '@modules/cars/useCase/importCategory/ImportCategoryController'
+import { ListCategorysController } from '@modules/cars/useCase/listCategory/ListCategorysController'
 
 
 const upload = multer({

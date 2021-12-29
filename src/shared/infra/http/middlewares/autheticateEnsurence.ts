@@ -1,9 +1,9 @@
 import { NextFunction, request, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
-import dotenv from "dotenv"
+import * as dotenv from "dotenv"
 import { IPayload } from './interfaces/IPayload'
-import { UsersRepositorys } from '../modules/accounts/repositories/Users'
-import { AppError } from '../errors/error'
+import { UsersRepositorys } from '@modules/accounts/repositories/Users'
+import { AppError } from '@errors/error'
 
 dotenv.config()
 
