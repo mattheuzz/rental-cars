@@ -1,18 +1,18 @@
 import express, { Request, Response, NextFunction } from 'express'
 import swaggerUi from 'swagger-ui-express'
-import swaggerDocument from './swagger.json'
+import swaggerDocument from '../../../swagger.json'
 import "express-async-errors"
-import "./database"
-import "./shared/container"
-import { router } from './shared/infra/http/routes'
-import { AppError } from './errors/error'
+import "@shared/infra/typeorm"
+import "@shared/container"
+import { router } from '@shared/infra/http/routes'
+import { AppError } from '@errors/error'
 
 const app = express()
 app.use(express.json())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use(router)
 
-app.use((e: Error, req: Request, res: Response, next: NextFunction) =>{
+app.use((e: AppError, req: Request, res: Response, next: NextFunction) =>{
   if (e instanceof AppError){
     return res.status(e.statusCode).json({
       message: e.message

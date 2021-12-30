@@ -1,6 +1,6 @@
 import { NextFunction, request, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
-import * as dotenv from "dotenv"
+import dotenv from "dotenv"
 import { IPayload } from './interfaces/IPayload'
 import { UsersRepositorys } from '@modules/accounts/repositories/Users'
 import { AppError } from '@errors/error'
