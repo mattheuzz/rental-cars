@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import * as multer from 'multer'
+import multer from 'multer'
 import uploadConfig from '../../../../config/upload'
 import { ensureAuthenticated } from '../middlewares/autheticateEnsurence'
 import { CreateUserController } from '@modules/accounts/useCases/createUser/controller'

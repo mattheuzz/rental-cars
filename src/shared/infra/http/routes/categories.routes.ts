@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import * as multer from 'multer'
+import multer from 'multer'
 import { ensureAuthenticated } from '../middlewares/autheticateEnsurence'
 import { CreateCategoryController } from '@modules/cars/useCase/createCategory/CreateCategoryController'
 import { ImportCategoryController } from '@modules/cars/useCase/importCategory/ImportCategoryController'
