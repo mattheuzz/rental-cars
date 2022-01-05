@@ -2,10 +2,13 @@ import express, { Request, Response, NextFunction } from 'express'
 import swaggerUi from 'swagger-ui-express'
 import swaggerDocument from '../../../swagger.json'
 import "express-async-errors"
-import "@shared/infra/typeorm"
+import cretaeConnection from "@shared/infra/typeorm"
 import "@shared/container"
 import { router } from '@shared/infra/http/routes'
 import { AppError } from '@errors/error'
+
+
+cretaeConnection()
 
 const app = express()
 app.use(express.json())
