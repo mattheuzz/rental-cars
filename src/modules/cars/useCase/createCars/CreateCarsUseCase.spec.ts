@@ -59,7 +59,7 @@ describe('Create Car', () => {
     brand: 'Fiat',
     category_id: '1'
     })
-    expect(result.avaliable).toBe(true)
+    expect(result.avaiable).toBe(true)
     expect(result.id).toBeTruthy()
   })
 })

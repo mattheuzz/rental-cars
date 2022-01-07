@@ -10,6 +10,12 @@ export interface ICarsRequest {
   category_id: string
 }
 
+export interface IListCars {
+  category_id?: string
+  brand?: string
+  name?: string
+}
+
 export interface ICarsRepository {
   create({
     name,
@@ -23,5 +29,5 @@ export interface ICarsRepository {
     
     findByLicensePlate(license_plate: string): Promise<Car | undefined>
 
-    
+    findAvaliable({ name, brand, category_id }: IListCars): Promise<Car[] | undefined>
 }
