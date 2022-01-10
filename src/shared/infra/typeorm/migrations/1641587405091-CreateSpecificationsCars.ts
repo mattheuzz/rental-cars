@@ -23,7 +23,7 @@ export class CreateSpecificationsCars1641587405091 implements MigrationInterface
                 ],
             }),
         );
-        await queryRunner.createForeignKeys(
+        await queryRunner.createForeignKey(
             "specifications_cars",
             new TableForeignKey({
                 name: 'FKSpecificationsCars',
@@ -34,9 +34,28 @@ export class CreateSpecificationsCars1641587405091 implements MigrationInterface
                 onUpdate: 'SET NULL',
             })
         );
+
+        await queryRunner.createForeignKey(
+            "specifications_cars",
+            new TableForeignKey({
+                name: 'FKCarsSpecifications',
+                referencedTableName: 'cars',
+                referencedColumnNames: ['id'],
+                columnNames: ['car_id'],
+                onDelete: 'SET NULL',
+                onUpdate: 'SET NULL',
+            })
+        );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropForeignKey(
+            "specifications_cars", "FKCarsSpecifications"
+        ),
+        await queryRunner.dropForeignKey(
+            "specifications_cars", "FKSpecificationsCars"
+        ),
+        await queryRunner.dropTable("specifications_cars")
     }
 
 }
