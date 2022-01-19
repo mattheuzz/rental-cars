@@ -10,7 +10,8 @@ export class CarsRepositoryInMemory implements ICarsRepository {
     license_plate,
     fine_amount,
     brand,
-    category_id
+    category_id,
+    specification
   }: ICarsRequest): Promise<Car> {
     const car = new Car()
 
@@ -21,7 +22,8 @@ export class CarsRepositoryInMemory implements ICarsRepository {
       license_plate,
       fine_amount,
       brand,
-      category_id
+      category_id,
+      specification
     })
 
     this.cars.push(car)
@@ -44,5 +46,8 @@ export class CarsRepositoryInMemory implements ICarsRepository {
         return null
       })
     return all
+  }
+  async findById(id: string): Promise<Car | undefined> {
+    return this.cars.find(car => car.id === id)
   }
 }

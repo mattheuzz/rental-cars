@@ -1,6 +1,7 @@
 import { getRepository, Repository } from "typeorm";
 import { Car } from "@modules/cars/infra/typeorm/entities/Cars";
 import { ICarsRepository, ICarsRequest, IListCars } from "../interface/ICars"
+import { Specification } from "../infra/typeorm/entities/Specification";
 
 
 export class CarsRepository implements ICarsRepository {
@@ -16,7 +17,8 @@ export class CarsRepository implements ICarsRepository {
     license_plate,
     fine_amount,
     brand,
-    category_id
+    category_id,
+    specification
   }: ICarsRequest): Promise<Car> {
     const car = this.repository.create({
       name,
@@ -25,7 +27,8 @@ export class CarsRepository implements ICarsRepository {
       license_plate,
       fine_amount,
       brand,
-      category_id
+      category_id,
+      specification
     })
 
     await this.repository.save(car)
@@ -35,6 +38,11 @@ export class CarsRepository implements ICarsRepository {
 
   async findByLicensePlate(license_plate: string): Promise<Car | undefined> {
     const car = this.repository.findOne({license_plate})
+    return car
+  }
+
+  async findById(id: string): Promise<Car | undefined> {
+    const car = this.repository.findOne({id})
     return car
   }
 

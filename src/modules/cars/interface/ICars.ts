@@ -1,4 +1,5 @@
 import { Car } from "../infra/typeorm/entities/Cars";
+import { Specification } from "../infra/typeorm/entities/Specification";
 
 export interface ICarsRequest {
   name: string
@@ -8,6 +9,7 @@ export interface ICarsRequest {
   fine_amount: number
   brand: string
   category_id: string
+  specification?: Specification[]
 }
 
 export interface IListCars {
@@ -24,10 +26,13 @@ export interface ICarsRepository {
     license_plate,
     fine_amount,
     brand,
-    category_id
+    category_id,
+    specification
     }: ICarsRequest): Promise<Car>
     
     findByLicensePlate(license_plate: string): Promise<Car | undefined>
 
     findAvaliable({ name, brand, category_id }: IListCars): Promise<Car[] | undefined>
+
+    findById(id: string): Promise<Car | undefined>
 }
