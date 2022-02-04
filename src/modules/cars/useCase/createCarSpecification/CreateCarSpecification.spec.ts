@@ -30,7 +30,7 @@ describe('Create Car Specification', () => {
   })
 
   test('Should not be able to create a new car specification to the car', async () => {
-    const car = await carsRepositoryInMemory.create({
+    const cars = await carsRepositoryInMemory.create({
       name: 'Fusca',
       description: 'Fusca é um carro de luxo',
       daily_rate: 100,
@@ -43,9 +43,13 @@ describe('Create Car Specification', () => {
       name: '4 portas',
       description: 'Carro com 4 portas',
     })
-    await createCarSpecificationUseCase.execute({
-      car_id: car.id as string,
+    const car = await createCarSpecificationUseCase.execute({
+      car_id: cars.id as string,
       specification_id: [specification.id as string]
     })
+
+    console.log(cars)
+    expect(cars).toHaveProperty("specification")
+    expect(cars.specification.length).toBe(1)
   })
 })

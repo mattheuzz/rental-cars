@@ -10,7 +10,7 @@ const create = async () => {
 
   await connection.query(
     `INSERT INTO USERS( id, name, email, password, admin, created_at, driver_license )
-    values('${id}', 'admin', 'admin@email.com.br', '${password}', true, 'now()', 'XXXXX' )
+    values('${id}', 'admin', 'admin@email.com', '${password}', true, 'now()', 'XXXXX' )
     `
   )
   await connection.close
