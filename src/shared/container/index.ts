@@ -3,10 +3,12 @@ import { SpecificationRepository } from "@modules/cars/repositories/Specificatio
 import { CategoryRepository } from "../../modules/cars/repositories/Category"
 import { ICategoryRepository } from "../../modules/cars/interface/ICategory"
 import { ISpecificationsRepository } from "../../modules/cars/interface/ISpecification"
+import { ICarImageRepository } from "../../modules/cars/interface/ICarImage"
 import { IUserRepository } from "../../modules/accounts/interfaces/IUser"
 import { UsersRepositorys } from "../../modules/accounts/repositories/Users"
 import { ICarsRepository } from "@modules/cars/interface/ICars"
 import { CarsRepository } from "@modules/cars/repositories/CarsRepository"
+import { CarImagesRepository } from "@modules/cars/repositories/CarsImageReository"
 
 container.registerSingleton<ICategoryRepository>(
     "CategoryRepository",
@@ -26,4 +28,9 @@ container.registerSingleton<IUserRepository>(
 container.registerSingleton<ICarsRepository>(
     "CarsRepository",
     CarsRepository
+)
+
+container.registerSingleton<ICarImageRepository>(
+    "CarImagesRepository",
+    CarImagesRepository
 )
