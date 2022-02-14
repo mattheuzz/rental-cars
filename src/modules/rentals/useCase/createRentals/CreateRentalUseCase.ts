@@ -1,4 +1,5 @@
 import { AppError } from "@errors/error"
+import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental"
 import { IRentalRepository } from "@modules/rentals/interface/IRentalRepository"
 
 interface IRequest {
@@ -10,7 +11,7 @@ interface IRequest {
 
 export class CreateRentalUseCase{
   constructor (private retalsRepository: IRentalRepository){}
-  async execute({ user_id, car_id, expected_return_date }: IRequest): Promise<void> {
+  async execute({ user_id, car_id, expected_return_date }: IRequest): Promise<Rental> {
 
     const carUnavailable = await this.retalsRepository.findOpenRentalByCarId(car_id)
     if (carUnavailable) {
@@ -22,5 +23,12 @@ export class CreateRentalUseCase{
       throw new AppError('User already has a rental')
     }
 
+    const rental = await this.retalsRepository.create({
+      user_id,
+      car_id,
+      expected_return_date
+    })
+
+    return rental
   }
 }
