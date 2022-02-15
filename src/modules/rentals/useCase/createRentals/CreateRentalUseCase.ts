@@ -1,6 +1,9 @@
 import { AppError } from "@errors/error"
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental"
 import { IRentalRepository } from "@modules/rentals/interface/IRentalRepository"
+import { RentalRepository } from "@modules/rentals/repositories/RentalRepository"
+import { DayJsDateProvider } from "@shared/container/providers/Date/implementations/DayJsDateProvider"
+import { inject, injectable } from "tsyringe"
 
 interface IRequest {
   user_id: string
@@ -9,21 +12,35 @@ interface IRequest {
 
 }
 
+@injectable()
 export class CreateRentalUseCase{
-  constructor (private retalsRepository: IRentalRepository){}
+  constructor (
+    @inject(RentalRepository)
+    private rentalsRepository: IRentalRepository,
+    @inject(DayJsDateProvider)
+    private dayjsDateProvider: DayJsDateProvider
+    ){}
   async execute({ user_id, car_id, expected_return_date }: IRequest): Promise<Rental> {
 
-    const carUnavailable = await this.retalsRepository.findOpenRentalByCarId(car_id)
+    const carUnavailable = await this.rentalsRepository.findOpenRentalByCarId(car_id)
     if (carUnavailable) {
       throw new AppError('Car already rented')
     }
 
-    const userAlreadyHasRental = await this.retalsRepository.findOpenRentalByUserId(user_id)
+    const userAlreadyHasRental = await this.rentalsRepository.findOpenRentalByUserId(user_id)
     if (userAlreadyHasRental) {
       throw new AppError('User already has a rental')
     }
 
-    const rental = await this.retalsRepository.create({
+    const dateNow = this.dayjsDateProvider.dateNow()
+
+    const expectedReturnDate = this.dayjsDateProvider.compareDates(expected_return_date, dateNow)
+
+    if (expectedReturnDate < 24) {
+      throw new AppError('The expected return date has to be a lest 24h')
+    }
+
+    const rental = await this.rentalsRepository.create({
       user_id,
       car_id,
       expected_return_date

@@ -9,5 +9,9 @@ export interface ICreateRentalDTO {
 export interface IRentalRepository {
   findOpenRentalByCarId(car_id: string): Promise<Rental | undefined>
   findOpenRentalByUserId(user_id: string): Promise<Rental | undefined>
-  create(rental: ICreateRentalDTO): Promise<Rental>
+  create({
+    car_id,
+    user_id,
+    expected_return_date,
+  }: ICreateRentalDTO): Promise<Rental>
 }
