@@ -20,7 +20,7 @@ const importCategoryController = new ImportCategoryController()
 const listCategorysController = new ListCategorysController()
 
 
-categoriesRoutes.post('/', ensureAdmin, ensureAuthenticated, createCategoryController.handle)
+categoriesRoutes.post('/', ensureAuthenticated, ensureAdmin, createCategoryController.handle)
 
 categoriesRoutes.get('/', listCategorysController.handle)
 

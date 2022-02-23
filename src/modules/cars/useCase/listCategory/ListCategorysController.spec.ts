@@ -6,7 +6,7 @@ import { app } from "@shared/infra/http/app"
 import createConnection from "../../../../shared/infra/typeorm/index"
 
 let conenction: Connection
-describe("Create Category Controller", () =>{
+describe('List Category', () => {
   beforeAll(async () => {
     conenction = await createConnection()
     await conenction.runMigrations()
@@ -25,30 +25,18 @@ describe("Create Category Controller", () =>{
     await conenction.close()
   })
 
-  test("should be able to create a new category", async() =>{
-    const responseToken = await request(app).post("/sessions").send({
-      email: 'admin@email.com',
-      password: '123456'
-    })
-     const { token } = responseToken.body
-
-    const response = await request(app).post("/categories").send({
-        name: "teste",
-        description: "teste"
-      }).set({Authorization: `Bearer ${token}`})
-    expect(response.status).toBe(201)
-  })
-  test("should not be able to create a new category", async() =>{
+  test('should be able to list all categories', async () => {
     const responseToken = await request(app).post("/sessions").send({
       email: 'admin@email.com',
       password: '123456'
     })
     const { token } = responseToken.body
+    await request(app).post("/categories").send({
+      name: "fusca",
+      description: "fusca"
+    }).set({Authorization: `Bearer ${token}`})
 
-    const response = await request(app).post("/categories").send({
-        name: "teste",
-        description: "teste"
-      }).set({Authorization: `Bearer ${token}`})
-    expect(response.status).toBe(400)
+    const response = await request(app).get("/categories")
+    expect(response.status).toBe(200)
   })
 })
