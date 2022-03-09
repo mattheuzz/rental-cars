@@ -20,4 +20,11 @@ export class DayJsDateProvider implements IDateProvider {
   dateNow(): Date {
       return dayjs().toDate()
   }
+
+  compareDays(initialDate: Date, dateToCompare: Date): number {
+    const dateToCompareFormatted = dayjs(dateToCompare).utc().local().format()
+    const initialDateFormatted = dayjs(initialDate).utc().local().format()
+
+    return dayjs(initialDateFormatted).diff(dateToCompareFormatted, 'days')
+  }
 }
