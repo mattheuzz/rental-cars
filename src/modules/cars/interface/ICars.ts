@@ -35,4 +35,6 @@ export interface ICarsRepository {
     findAvaliable({ name, brand, category_id }: IListCars): Promise<Car[] | undefined>
 
     findById(id: string): Promise<Car | undefined>
+
+    updateAvaliable(id: string, avaiable: boolean): Promise<void>
 }

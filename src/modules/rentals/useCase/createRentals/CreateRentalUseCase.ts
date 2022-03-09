@@ -1,4 +1,6 @@
 import { AppError } from "@errors/error"
+import { ICarsRepository } from "@modules/cars/interface/ICars"
+import { CarsRepository } from "@modules/cars/repositories/CarsRepository"
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental"
 import { IRentalRepository } from "@modules/rentals/interface/IRentalRepository"
 import { RentalRepository } from "@modules/rentals/repositories/RentalRepository"
@@ -18,7 +20,9 @@ export class CreateRentalUseCase{
     @inject(RentalRepository)
     private rentalsRepository: IRentalRepository,
     @inject(DayJsDateProvider)
-    private dayjsDateProvider: DayJsDateProvider
+    private dayjsDateProvider: DayJsDateProvider,
+    @inject(CarsRepository)
+    private carsRepository: ICarsRepository
     ){}
   async execute({ user_id, car_id, expected_return_date }: IRequest): Promise<Rental> {
 
@@ -45,6 +49,8 @@ export class CreateRentalUseCase{
       car_id,
       expected_return_date
     })
+
+    await this.carsRepository.updateAvaliable(car_id, false)
 
     return rental
   }

@@ -65,4 +65,14 @@ export class CarsRepository implements ICarsRepository {
 
     return cars
   }
+  async updateAvaliable(id: string, avaiable: boolean): Promise<void> {
+    await this.repository.createQueryBuilder()
+    .update(Car)
+    .set({avaiable})
+    .where("id = :id")
+    .setParameter("id", id)
+    .execute()
+
+  }
+  
 } 

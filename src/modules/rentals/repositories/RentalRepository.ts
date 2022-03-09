@@ -33,4 +33,8 @@ export class RentalRepository implements IRentalRepository {
       await this.repoitory.save(rental)
       return rental
   }
+  findById(id: string): Promise<Rental | undefined> {
+    const rental = this.repoitory.findOne({id})
+    return rental
+  }
 }
