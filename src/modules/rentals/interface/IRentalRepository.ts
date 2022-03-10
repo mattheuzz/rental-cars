@@ -18,4 +18,10 @@ export interface IRentalRepository {
     expected_return_date,
   }: ICreateRentalDTO): Promise<Rental>
   findById(id: string): Promise<Rental | undefined>
+  findByUserId(user_id: string): Promise<Rental[]>
+}
+
+export interface IRequestDevolution {
+  id: string
+  user_id: string
 }

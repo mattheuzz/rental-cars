@@ -2,15 +2,11 @@ import { AppError } from "@errors/error";
 import { ICarsRepository } from "@modules/cars/interface/ICars";
 import { CarsRepository } from "@modules/cars/repositories/CarsRepository";
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
-import { IRentalRepository } from "@modules/rentals/interface/IRentalRepository";
+import { IRentalRepository, IRequestDevolution } from "@modules/rentals/interface/IRentalRepository";
 import { RentalRepository } from "@modules/rentals/repositories/RentalRepository";
 import { DayJsDateProvider } from "@shared/container/providers/Date/implementations/DayJsDateProvider";
 import { inject, injectable } from "tsyringe";
 
-export interface IRequestDevolution {
-  id: string
-  user_id: string
-}
 
 @injectable()
 export class DevolutionUseCase {
