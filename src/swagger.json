@@ -1,19 +1,22 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Rental Car API",
-    "description": "API for Rental Car",
+    "title": "Rental Car Api Documentation",
+    "description": "This is a car rental API",
     "version": "1.0.0",
     "contact": {
-      "email": "matheus@gmail.com"
+      "email": "lima.jhonny95@gmail.com"
     }
   },
   "paths": {
     "/categories": {
       "post": {
-        "tags": ["Categories"],
+        "tags": ["Category"],
         "summary": "Create a category",
-        "description": "Create a new car category to rent",
+        "description": "Create a new category",
+        "security": [
+          { "bearerAuth": [] }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -27,9 +30,9 @@
                     "type": "string"
                   }
                 },
-                "exemples": {
+                "example": {
                   "name": "Category name sample",
-                  "description": "description of a category"
+                  "description": "Category description sample"
                 }
               }
             }
@@ -37,28 +40,27 @@
         },
         "responses": {
           "201": {
-            "description": "Category created"
+            "description": "Created"
           },
-          "400": {
-            "description": "Name and description are required"
-          },
-          "500": "Category alredy exist"
+          "500": {
+            "description": "Category already exists"
+          }
         }
       },
       "get": {
-        "tags": ["Categories"],
+        "tags": ["Category"],
         "summary": "List all categories",
-        "description": "Get all categories created in the system",
-        "response":{
-          "200":{
+        "description": "List all categories",
+        "responses": {
+          "200": {
             "description": "Success",
             "content": {
-              "aplication/json": {
-                "schema":{
-                  "types": "array",
+              "application/json": {
+                "schema": {
+                  "type": "array",
                   "items": {
                     "type": "object",
-                    "propreties": {
+                    "properties": {
                       "name": {
                         "type": "string"
                       },
@@ -74,11 +76,14 @@
         }
       }
     },
-    "/categories/imports": {
+    "/categories/import": {
       "post": {
-        "tags": ["Categories"],
-        "summary": "Import categories",
-        "description": "Import new categories from a file",
+        "tags": ["Category"],
+        "summary": "Upload a category",
+        "description": "Upload a new category",
+        "security": [
+          { "bearerAuth": [] }
+        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -96,7 +101,10 @@
         },
         "responses": {
           "201": {
-            "description": "Categories created"
+            "description": "Created"
+          },
+          "400": {
+            "description": "Error"
           }
         }
       }
@@ -104,23 +112,144 @@
     "/specifications": {
       "post": {
         "tags": ["Specifications"],
-        "summary": "Create a secifications",
-        "description": "Create a new car specifications to rent",
+        "summary": "Create a specification",
+        "description": "Create a new specification",
+        "security": [
+          { "bearerAuth": [] }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#definitions/Specification"
+                "$ref": "#/definitions/Specification"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Specifications created"
+            "description": "Created"
           },
           "400": {
-            "description": "Specifications alredy exist"
+            "description": "Specification already exists!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "Specification already exists!"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sessions": {
+      "post": {
+        "tags": ["Session"],
+        "summary": "Authenticate a user",
+        "description": "Authenticate a user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Email or password incorrect!"
+          }
+        }
+      }
+    },
+    "/cars": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Create a new car",
+        "description": "Create a new car",
+        "security": [
+          { "bearerAuth": []}
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Car"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Car already exists!"
+          }
+        }
+      }
+    },
+    "/cars/images/{id}": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Upload car images",
+        "description": "Upload car images",
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Car id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
           }
         }
       }
@@ -136,6 +265,41 @@
         "description": {
           "type": "string"
         }
+      }
+    },
+    "Car": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "daily_rate": {
+          "type": "number"
+        },
+        "license_plate": {
+          "type": "string"
+        },
+        "fine_amount": {
+          "type": "number"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
