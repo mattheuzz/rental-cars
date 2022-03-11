@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv"
 import { inject, injectable } from "tsyringe"
-import { compare } from "bcrypt"
+import { compare } from "bcryptjs"
 import { sign } from "jsonwebtoken";
 import { IRequest, IResponse } from "@modules/accounts/interfaces/IAuthenticate"
 import { IUserRepository } from "@modules/accounts/interfaces/IUser"
