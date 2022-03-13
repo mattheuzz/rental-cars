@@ -20,6 +20,6 @@ carsRoutes.post('/', ensureAuthenticated, ensureAdmin, createCarController.handl
 
 carsRoutes.post('/specifications/:id', ensureAuthenticated, ensureAdmin, createCarsSpecificationController.handle)
 
-carsRoutes.get('/avaliables', listCarsController.handle)
+carsRoutes.get('/availables', listCarsController.handle)
 
 carsRoutes.post('/images/:id', ensureAuthenticated, ensureAdmin, upload.array("image"),uploadCarImageController.handle)
