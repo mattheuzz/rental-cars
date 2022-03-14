@@ -4,11 +4,13 @@ import dotenv from "dotenv"
 import { IPayload } from './interfaces/IPayload'
 import { UsersRepositorys } from '@modules/accounts/repositories/Users'
 import { AppError } from '@errors/error'
+import { UsersTokenRepository } from '@modules/accounts/repositories/UsersToken'
 
 dotenv.config()
 
 async function ensureAuthenticated (req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization
+  const usersTokenRepository = new UsersTokenRepository()
 
   if (!authHeader) {
     throw new AppError('Token is missing', 401)
@@ -17,11 +19,11 @@ async function ensureAuthenticated (req: Request, res: Response, next: NextFunct
   const [, token] = authHeader.split(' ')
 
 try {  
-  const { sub } = verify(token, process.env.JWT as string) as IPayload
+  const { sub } = verify(token, process.env.JWTREFRESH as string) as IPayload
   const user_id = sub
 
   const usersRepository = new UsersRepositorys()
-  const user = await usersRepository.findById(user_id)
+  const user = await usersTokenRepository.findUserIdAndToken(user_id, token)
   console.log(user)
 
   if (!user) {

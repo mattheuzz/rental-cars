@@ -1,7 +1,7 @@
 import { sign, verify } from "jsonwebtoken";
 import { IUsersTokenRepository } from "@modules/accounts/interfaces/IUsersToken";
 import { UsersTokenRepository } from "@modules/accounts/repositories/UsersToken";
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { AppError } from "@errors/error";
 import auth from "@config/auth";
 import { IDateProvider } from "@shared/container/providers/Date/IDateProvider";
@@ -12,6 +12,7 @@ interface IPayload {
   email: string
 }
 
+@injectable()
 export class RefreshTokenUseCase {
   constructor(
     @inject(UsersTokenRepository)
