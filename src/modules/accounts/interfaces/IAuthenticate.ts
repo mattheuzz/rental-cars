@@ -9,4 +9,5 @@ export interface IResponse {
     email: string
   },
   token: string
+  refresh_token: string
 }

@@ -27,4 +27,8 @@ export class DayJsDateProvider implements IDateProvider {
 
     return dayjs(initialDateFormatted).diff(dateToCompareFormatted, 'days')
   }
+
+  addDays(days: number): Date {
+      return dayjs().add(days, 'days').toDate()
+  }
 }

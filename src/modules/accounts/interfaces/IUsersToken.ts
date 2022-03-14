@@ -8,4 +8,6 @@ export interface ICreateUsersTokenDto {
 
 export interface IUsersTokenRepository {
   create(data: ICreateUsersTokenDto): Promise<UsersToken>
+  findUserIdAndToken(user_id: string, token: string): Promise<UsersToken | undefined>
+  deleteById(id: string): Promise<void | undefined>
 }
