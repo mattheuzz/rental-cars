@@ -9,8 +9,8 @@ container.registerSingleton<IDateProvider>(
   DayJsDateProvider
 )
 
-container.registerSingleton<IEmail>(
+container.registerInstance<IEmail>(
   "EthereaEmail",
-  EtheralEmail
+  new EtheralEmail()
 )
 
