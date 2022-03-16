@@ -1,20 +1,28 @@
 import { AppError } from "@errors/error";
 import { ICreateUserDto } from "@modules/accounts/interfaces/IUser";
 import { UserRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
+import { UsersTokenRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersTokenRepositoryInMemory";
+import { DayJsDateProvider } from "@shared/container/providers/Date/implementations/DayJsDateProvider";
 import { CreateUserUseCase } from "../createUser/useCase";
 import { AuthenticateUserUseCase } from "./userCase";
 
 
 let authenticateUserUseCase: AuthenticateUserUseCase
 let usersRepositoryInMemory: UserRepositoryInMemory
+let usersTokenRepositoryInMemory: UsersTokenRepositoryInMemory
+let dateProvider: DayJsDateProvider
 let createUserUseCase: CreateUserUseCase
 
 describe("Authenticate users", () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UserRepositoryInMemory()
-    authenticateUserUseCase = new AuthenticateUserUseCase(usersRepositoryInMemory)
+    authenticateUserUseCase = new AuthenticateUserUseCase(
+      usersRepositoryInMemory,
+      usersTokenRepositoryInMemory,
+      dateProvider
+    )
     createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory)
-    
+
 
   })
 
@@ -39,9 +47,9 @@ describe("Authenticate users", () => {
 
   it("should not be able to authenticate an nonexistent user", async () => {
     await expect(authenticateUserUseCase.execute({
-        email: "test2",
-        password: "123456789"
-      })
+      email: "test2",
+      password: "123456789"
+    })
     ).rejects.toEqual(new AppError('Email or password invalid', 401))
   })
 
@@ -55,9 +63,9 @@ describe("Authenticate users", () => {
 
     await createUserUseCase.execute(user)
     await expect(authenticateUserUseCase.execute({
-        email: user.email,
-        password: "123456789"
-      })
+      email: user.email,
+      password: "123456789"
+    })
     ).rejects.toEqual(new AppError('Email or password invalid', 401))
   })
 })

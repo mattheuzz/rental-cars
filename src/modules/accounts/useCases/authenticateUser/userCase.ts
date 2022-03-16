@@ -30,6 +30,7 @@ class AuthenticateUserUseCase {
     
     const user = await this.usersRepository.findByEmail(email)
     const { expires_in_token, expires_in_refresh_token, expires_in_refresh_token_days} = auth
+
     if(!user){
       throw new AppError('Email or password invalid', 401)
     }
@@ -43,6 +44,7 @@ class AuthenticateUserUseCase {
       subject: user.id,
       expiresIn: expires_in_token
     })
+    console.log(expires_in_refresh_token_days)
 
     const refresh_token_expires_date = this.dateProvider.addDays(expires_in_refresh_token_days)
     
