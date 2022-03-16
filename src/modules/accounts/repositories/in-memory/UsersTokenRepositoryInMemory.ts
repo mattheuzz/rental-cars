@@ -3,7 +3,7 @@ import { ICreateUsersTokenDto, IUsersTokenRepository } from "@modules/accounts/i
 
 
 export class UsersTokenRepositoryInMemory implements IUsersTokenRepository {
-  usersTokens!: UsersToken[]
+  usersTokens: UsersToken[] =[]
 
   async create({ user_id, expires_date, refresh_token }: ICreateUsersTokenDto): Promise<UsersToken> {
       const userTokens = new UsersToken()
