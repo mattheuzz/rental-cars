@@ -5,13 +5,14 @@ import { ICreateUsersTokenDto, IUsersTokenRepository } from "@modules/accounts/i
 export class UsersTokenRepositoryInMemory implements IUsersTokenRepository {
   usersTokens!: UsersToken[]
 
-  async create(data: ICreateUsersTokenDto): Promise<UsersToken> {
+  async create({ user_id, expires_date, refresh_token }: ICreateUsersTokenDto): Promise<UsersToken> {
       const userTokens = new UsersToken()
       Object.assign(userTokens, {
-        user_id: data.user_id,
-        expires_date: data.expires_date,
-        refresh_token: data.refresh_token
+        user_id,
+        expires_date,
+        refresh_token,
       })
+      console.log(userTokens)
 
       this.usersTokens.push(userTokens)
       return userTokens

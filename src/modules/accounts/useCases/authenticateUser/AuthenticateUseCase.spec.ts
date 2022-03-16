@@ -15,6 +15,8 @@ let createUserUseCase: CreateUserUseCase
 
 describe("Authenticate users", () => {
   beforeEach(() => {
+    usersTokenRepositoryInMemory = new UsersTokenRepositoryInMemory()
+    dateProvider = new DayJsDateProvider();
     usersRepositoryInMemory = new UserRepositoryInMemory()
     authenticateUserUseCase = new AuthenticateUserUseCase(
       usersRepositoryInMemory,
