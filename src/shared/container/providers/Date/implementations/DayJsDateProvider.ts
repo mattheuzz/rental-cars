@@ -35,4 +35,11 @@ export class DayJsDateProvider implements IDateProvider {
   addHours(hours: number): Date {
     return dayjs().add(hours, 'hour').toDate()
   }
+
+  compareIfBefore(initialDate: Date, dateToCompare: Date): boolean {
+    const dateToCompareFormatted = dayjs(dateToCompare).utc().local().format()
+    const initialDateFormatted = dayjs(initialDate).utc().local().format()
+
+    return dayjs(initialDateFormatted).isBefore(dateToCompareFormatted)
+  }
 }

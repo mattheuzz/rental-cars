@@ -5,4 +5,5 @@ export interface IDateProvider {
   compareDays(initialDate: Date, dateToCompare: Date): number
   addDays(days: number): Date
   addHours(hours: number): Date
+  compareIfBefore(initialDate: Date, dateToCompare: Date): boolean
 }
