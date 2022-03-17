@@ -8,7 +8,7 @@ import { v4 as uuidV4 } from "uuid"
 import { resolve } from "path"
 
 @injectable()
-export class ForgottenPaasowrdUseCase {
+export class ForgottenPasswordUseCase {
   constructor(
     @inject(UsersRepositorys)
     private usersRepositorys: UsersRepositorys,

@@ -1,7 +1,8 @@
 import { Users } from "@modules/accounts/infra/typeorm/entities/Users";
 import { ICreateUserDto, IUserRepository } from "@modules/accounts/interfaces/IUser";
+import { UsersRepositorys } from "../Users";
 
-class UserRepositoryInMemory implements IUserRepository {
+class UserRepositoryInMemory implements IUserRepository{
   users: Users[] = []
 
   async create({ name, password, email, driver_license }: ICreateUserDto): Promise<void> {
