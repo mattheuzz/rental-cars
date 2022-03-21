@@ -7,6 +7,7 @@ class UpdateUserAvatarController{
   async handler(req: Request, res: Response): Promise<Response>{
     const { id } = req.user
     const avatar = req.file ? req.file.filename : undefined
+    console.log(avatar)
 
     if (!avatar) {
       return res.status(400).json({ error: "Avatar is required" })

@@ -21,18 +21,13 @@ class UpdateUserAvatarUseCase {
     if (!user) {
       throw new AppError('User not found', 404)
     }
-
     
-    if (!user.avatar) {
-      throw new AppError('Avatar is required', 400)
-    }
-    
-    await this.localStorageProvider.delete(user.avatar, "avatar")
+    await this.localStorageProvider.delete(user!.avatar, "avatar")
     
     await this.localStorageProvider.save(
       avatar, "avatar"
     )
-    user.avatar = avatar
+    user.avatar = avatar as string
     await this.usersRepository.create(user)
   }
 }
