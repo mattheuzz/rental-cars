@@ -9,6 +9,14 @@ export interface ICreateUserDto{
   avatar?: string
 }
 
+export interface IUserResponseDTO{
+  email: string
+  name:string
+  id:string
+  avatar: string
+  getAvatarUrl(): string
+}
+
 export interface IUserRepository {
   create({ name, password, email, driver_license }: ICreateUserDto): Promise<void>
   findByEmail(email: string): Promise<Users>

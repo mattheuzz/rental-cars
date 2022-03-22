@@ -7,6 +7,7 @@ import cretaeConnection from "@shared/infra/typeorm"
 import "@shared/container"
 import { router } from '@shared/infra/http/routes'
 import { AppError } from '@errors/error'
+import upload from '@config/upload'
 
 
 cretaeConnection()
@@ -14,6 +15,9 @@ cretaeConnection()
 const app = express()
 app.use(express.json())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.use('/avatar', express.static(`${upload.tmpFolder}/avatar`) )
+app.use('/cars', express.static(`${upload.tmpFolder}/cars`) )
+
 app.use(router)
 
 app.use((e: AppError, req: Request, res: Response, next: NextFunction) =>{
