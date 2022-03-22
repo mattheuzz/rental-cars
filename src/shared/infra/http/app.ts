@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express'
+import "dotenv/config"
 import swaggerUi from 'swagger-ui-express'
 import swaggerDocument from '../../../swagger.json'
 import "express-async-errors"
