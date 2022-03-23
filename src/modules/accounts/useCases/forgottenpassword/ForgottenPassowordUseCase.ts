@@ -16,7 +16,7 @@ export class ForgottenPasswordUseCase {
     private usersTokenRepository: UsersTokenRepository,
     @inject(DayJsDateProvider)
     private dateProvider: DayJsDateProvider,
-    @inject(EtheralEmail)
+    @inject("Email")
     private emailProvider: EtheralEmail
   ) {}
   async execute(email: string) {
